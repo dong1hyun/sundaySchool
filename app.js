@@ -5,8 +5,10 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
-
-const users = require('./routes/user');
+const {router} = require('./routes/user');
+const users = router;
+const attendances = require('./routes/attendance');
+const dalants = require('./routes/dalant');
 
 dotenv.config();
 
@@ -38,6 +40,8 @@ app.use(
 );
 
 app.use('/users', users);
+app.use('/attendances', attendances);
+// app.use('/dalants', dalants);
 
 app.use((req, res, next) => {
     next('404 Not found error!')

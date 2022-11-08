@@ -2,10 +2,10 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const multer = require('multer');
-const users = {};
 const path = require('path');
 const fs = require('fs');
 
+const users = {};
 const DIR = 'album/'
 
 const upload = multer({
@@ -44,9 +44,8 @@ router.get('/delete', (req, res) => {
 
 // 학생 정보 추가
 router.post('/cid', upload.single('image'), (req, res) => {
-    console.log(req.body, req.query);
     const { id, name, birth, gender } = req.body;
-    users[id] = { name, birth, gender, 'img': req.file?.path ?? '' };
+    users[id] = { name, birth, gender, 'img': req.file?.path ?? '', attendance :{} };
     res.render('index');
 });
 
@@ -81,4 +80,4 @@ router.get('/did', (req, res) => {
     res.render('index');
 });
 
-module.exports = router;
+module.exports = {users, router};
